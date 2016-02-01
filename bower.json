@@ -1,0 +1,19 @@
+{
+  "name": "cubeman",
+  "authors": [
+    "Eunmi Han <orangeem1219@gmail.com>"
+  ],
+  "description": "COMP392-Assignment for Advanced Graphics",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "https://github.com/em-graphics/CubeMan.git",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
