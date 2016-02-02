@@ -4,11 +4,15 @@ module objects {
     //Control class
     export class Control {
         //Public Instance Variables 
-        public rotationSpeed:number;
+        public rotationSpeedY:number;
+        public rotationSpeedX:number;
+        public rotationSpeedZ:number;
         
         //Constructor
         constructor(rotationSpeed:number) {
-           this.rotationSpeed = rotationSpeed;
+           this.rotationSpeedY = rotationSpeed;
+           this.rotationSpeedX = rotationSpeed;
+           this.rotationSpeedZ = rotationSpeed;
         }        
     }
 }

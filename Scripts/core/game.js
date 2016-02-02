@@ -46,7 +46,6 @@ var arm_left;
 var arm_right;
 var leg_left;
 var leg_right;
-var centeralAxis;
 function init() {
     //Instantiate a new Scene objects
     scene = new Scene();
@@ -69,7 +68,7 @@ function init() {
     head = new Mesh(cubeGeometry, new LambertMaterial({ color: 0xffe08c }));
     head.castShadow = true;
     head.receiveShadow = true;
-    head.position.y = 8;
+    head.position.y = 3;
     body = new Mesh(new CubeGeometry(3, 4, 3), new LambertMaterial({ color: 0x005766 }));
     body.castShadow = true;
     body.receiveShadow = true;
@@ -77,37 +76,29 @@ function init() {
     arm_left = new Mesh(new CubeGeometry(2, 1, 1), new LambertMaterial({ color: 0xffe08c }));
     arm_left.castShadow = true;
     arm_left.receiveShadow = true;
+    arm_left.position.y = 1;
+    arm_left.position.x = 2;
     arm_right = new Mesh(new CubeGeometry(2, 1, 1), new LambertMaterial({ color: 0xffe08c }));
     arm_right.castShadow = true;
     arm_right.receiveShadow = true;
+    arm_right.position.y = 1;
+    arm_right.position.x = -2;
     leg_left = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({ color: 0xffe08c }));
     leg_left.castShadow = true;
     leg_left.receiveShadow = true;
+    leg_left.position.x = 0.7;
+    leg_left.position.y = -2;
     leg_right = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({ color: 0xffe08c }));
     leg_right.castShadow = true;
     leg_right.receiveShadow = true;
-    // It helps the legs and arms rotation
-    centeralAxis = new THREE.Object3D();
-    scene.add(centeralAxis);
-    // pivots
-    var pivot1 = new THREE.Object3D();
-    var pivot2 = new THREE.Object3D();
-    pivot1.rotation.y = 0;
-    pivot2.rotation.y = 3 * Math.PI / 3;
-    centeralAxis.add(pivot1);
-    centeralAxis.add(pivot2);
-    leg_right.position.x = 1;
-    leg_left.position.x = 1;
-    arm_left.position.x = 2;
-    arm_left.position.y = 5;
-    arm_right.position.x = 2;
-    arm_right.position.y = 5;
-    pivot1.add(leg_right);
-    pivot1.add(arm_right);
-    pivot2.add(leg_left);
-    pivot2.add(arm_left);
-    scene.add(head);
+    leg_right.position.x = -0.7;
+    leg_right.position.y = -2;
     scene.add(body);
+    body.add(head);
+    body.add(arm_left);
+    body.add(arm_right);
+    body.add(leg_left);
+    body.add(leg_right);
     console.log("Added Cube Primitive to scene");
     // Add an AmbientLight to the scene
     ambientLight = new AmbientLight(0x404040);
@@ -142,7 +133,9 @@ function onResize() {
     renderer.setSize(CScreen.WIDTH, CScreen.HEIGHT);
 }
 function addControl(controlObject) {
-    gui.add(controlObject, 'rotationSpeed', -0.5, 0.5);
+    gui.add(controlObject, 'rotationSpeedX', -0.5, 0.5);
+    gui.add(controlObject, 'rotationSpeedY', -0.5, 0.5);
+    gui.add(controlObject, 'rotationSpeedZ', -0.5, 0.5);
 }
 function addStatsObject() {
     stats = new Stats();
@@ -155,9 +148,9 @@ function addStatsObject() {
 //Setup main game loop
 function gameLoop() {
     stats.update();
-    head.rotation.y += control.rotationSpeed;
-    body.rotation.y += control.rotationSpeed;
-    centeralAxis.rotation.y += control.rotationSpeed;
+    body.rotation.y += control.rotationSpeedY;
+    body.rotation.x += control.rotationSpeedX;
+    body.rotation.z += control.rotationSpeedZ;
     //render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     //render the scene

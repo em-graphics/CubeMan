@@ -5,7 +5,9 @@ var objects;
     var Control = (function () {
         //Constructor
         function Control(rotationSpeed) {
-            this.rotationSpeed = rotationSpeed;
+            this.rotationSpeedY = rotationSpeed;
+            this.rotationSpeedX = rotationSpeed;
+            this.rotationSpeedZ = rotationSpeed;
         }
         return Control;
     })();
