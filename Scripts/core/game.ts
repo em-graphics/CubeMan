@@ -47,9 +47,11 @@ var step: number = 0;
 var cubeGeometry:CubeGeometry;
 var cubeMaterial:LambertMaterial;
 var body: Mesh;
-var arm: Mesh;
+var arm_left: Mesh;
+var arm_right: Mesh;
 var leg_left: Mesh;
 var leg_right: Mesh;
+var centeralAxis:any;
 
 function init() {
     //Instantiate a new Scene objects
@@ -84,47 +86,73 @@ function init() {
     head = new Mesh(cubeGeometry,new LambertMaterial({color:0xffe08c}));
     head.castShadow = true;
     head.receiveShadow = true;
-    head.position.y = 7;
+    head.position.y = 8;
     
-    body = new Mesh(new CubeGeometry(3, 3, 3), new LambertMaterial({color:0x005766}));
+    body = new Mesh(new CubeGeometry(3, 4, 3), new LambertMaterial({color:0x005766}));
     body.castShadow = true;
     body.receiveShadow = true;
     body.position.y = 5;
     
-    arm = new Mesh(new CubeGeometry(1, 1, 6), new LambertMaterial({color:0xffe08c}));
-    arm.castShadow = true;
-    arm.receiveShadow = true;
-    arm.position.y = 5;
+    arm_left = new Mesh(new CubeGeometry(2, 1, 1), new LambertMaterial({color:0xffe08c}));
+    arm_left.castShadow = true;
+    arm_left.receiveShadow = true;
+   
+    arm_right = new Mesh(new CubeGeometry(2, 1, 1), new LambertMaterial({color:0xffe08c}));
+    arm_right.castShadow = true;
+    arm_right.receiveShadow = true;
     
-    leg_left = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({color:0xffe08c}));
+    leg_left = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({color:0xffe08c}));
     leg_left.castShadow = true;
     leg_left.receiveShadow = true;
-    leg_left.position.y = 3;
-    leg_left.position.x = 1;
     
-    leg_right = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({color:0xffe08c}));
+    leg_right = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({color:0xffe08c}));
     leg_right.castShadow = true;
     leg_right.receiveShadow = true;
-    leg_right.position.y = 3;
-    leg_right.position.x = -1;
+    
+    // It helps the legs and arms rotation
+	centeralAxis = new THREE.Object3D();
+	scene.add( centeralAxis );
+
+	// pivots
+	var pivot1 = new THREE.Object3D();
+	var pivot2 = new THREE.Object3D();
+	
+    
+	pivot1.rotation.y = 0;
+	pivot2.rotation.y = 3 * Math.PI / 3;
+	
+	centeralAxis.add( pivot1 );
+	centeralAxis.add( pivot2 );
+	
+	leg_right.position.x = 1;
+	leg_left.position.x = 1;
+    arm_left.position.x = 2;
+    arm_left.position.y = 5;
+    arm_right.position.x = 2;
+    arm_right.position.y = 5;
+	
+	pivot1.add( leg_right );
+    pivot1.add( arm_right);
+	pivot2.add( leg_left );
+	pivot2.add( arm_left);
     
     scene.add(head);
-    scene.add(body);
-    scene.add(arm);
-    scene.add(leg_left);
-    scene.add(leg_right);
+    scene.add(body);  
     console.log("Added Cube Primitive to scene");
     
     // Add an AmbientLight to the scene
-    ambientLight = new AmbientLight(0x090909);
+    ambientLight = new AmbientLight(0x404040);
     scene.add(ambientLight);
     console.log("Added an Ambient Light to Scene");
 	
     //Add a SpotLight to the scene
     spotLight = new SpotLight(0xffffff);
-    spotLight.position.set(5.6, 23.1, 5.4);
+    spotLight.position.set(10, 23.1, 5.4);
     spotLight.rotation.set(-0.8, 42.7, 19.5);
     spotLight.castShadow = true;
+    spotLight.target.position.set(0,3,3);
+    spotLight.shadowDarkness = 0.5;
+    
     scene.add(spotLight);
     console.log("Added a SpotLight Light to Scene");
     
@@ -146,9 +174,9 @@ function init() {
 
 function onResize(): void {
     camera.aspect = CScreen.RATIO;
-    //camera.aspect = window.innerWidth / window.innerHeight;
+//    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    //renderer.setSize(window.innerWidth, window.innerHeight);
+//    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setSize(CScreen.WIDTH, CScreen.HEIGHT);
 }
 
@@ -171,9 +199,7 @@ function gameLoop(): void {
 
     head.rotation.y += control.rotationSpeed;
     body.rotation.y += control.rotationSpeed;
-    arm.rotation.y += control.rotationSpeed;
-    leg_left.rotation.y += control.rotationSpeed;
-    leg_right.rotation.y += control.rotationSpeed;
+    centeralAxis.rotation.y += control.rotationSpeed;
     
     //render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
@@ -187,7 +213,7 @@ function setupRenderer(): void {
     renderer = new Renderer();
     renderer.setClearColor(0xEEEEEE, 1.0);
     renderer.setSize(CScreen.WIDTH, CScreen.HEIGHT);
-    //renderer.setSize(window.innerWidth, window.innerHeight);
+//    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     console.log("Finished setting up Renderer...");
 }
