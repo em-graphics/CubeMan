@@ -51,7 +51,10 @@ var arm_left: Mesh;
 var arm_right: Mesh;
 var leg_left: Mesh;
 var leg_right: Mesh;
-
+var shoe_left: Mesh;
+var shoe_right: Mesh;
+var t_left: Mesh;
+var t_right: Mesh;
 
 function init() {
     //Instantiate a new Scene objects
@@ -88,40 +91,53 @@ function init() {
     head.receiveShadow = true;
     head.position.y = 3;
     
-    body = new Mesh(new CubeGeometry(3, 4, 3), new LambertMaterial({color:0x005766}));
+    body = new Mesh(new CubeGeometry(3, 4, 3), new LambertMaterial({color:0xffffff}));
     body.castShadow = true;
     body.receiveShadow = true;
     body.position.y = 5;
     
-    arm_left = new Mesh(new CubeGeometry(2, 1, 1), new LambertMaterial({color:0xffe08c}));
+    t_left = new Mesh(new CubeGeometry(1, 1, 1), new LambertMaterial({color:0xffffff}));
+    t_left.castShadow = true;
+    t_left.receiveShadow = true;
+    t_left.position.x = 2;
+    t_left.position.y = 1;
+    
+    t_right = new Mesh(new CubeGeometry(1, 1, 1), new LambertMaterial({color:0xffffff}));
+    t_right.castShadow = true;
+    t_right.receiveShadow = true;
+    t_right.position.x = -2;
+    t_right.position.y = 1;
+    
+    arm_left = new Mesh(new CubeGeometry(1.5, 1, 1), new LambertMaterial({color:0xffe08c}));
     arm_left.castShadow = true;
     arm_left.receiveShadow = true;
     arm_left.position.y = 1;
-    arm_left.position.x = 2;
+    arm_left.position.x = 3.25;
    
-    arm_right = new Mesh(new CubeGeometry(2, 1, 1), new LambertMaterial({color:0xffe08c}));
+    arm_right = new Mesh(new CubeGeometry(1.5, 1, 1), new LambertMaterial({color:0xffe08c}));
     arm_right.castShadow = true;
     arm_right.receiveShadow = true;
     arm_right.position.y = 1;
-    arm_right.position.x = -2;
-
+    arm_right.position.x = -3.25;
     
-    leg_left = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({color:0xffe08c}));
+    leg_left = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({color:0x005766}));
     leg_left.castShadow = true;
     leg_left.receiveShadow = true;
     leg_left.position.x = 0.7;
     leg_left.position.y = -2;
     
-    leg_right = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({color:0xffe08c}));
+    leg_right = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({color:0x005766}));
     leg_right.castShadow = true;
     leg_right.receiveShadow = true;
     leg_right.position.x = -0.7;
     leg_right.position.y = -2;
     
     scene.add(body);
-    body.add(head);
     body.add(arm_left);
     body.add(arm_right);
+    body.add(head);
+    body.add(t_left);
+    body.add(t_right);
     body.add(leg_left);
     body.add(leg_right);
       
