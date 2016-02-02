@@ -30,7 +30,7 @@ var scene;
 var renderer;
 var camera;
 var axes;
-var cube;
+var head;
 var plane;
 var sphere;
 var ambientLight;
@@ -41,6 +41,10 @@ var stats;
 var step = 0;
 var cubeGeometry;
 var cubeMaterial;
+var body;
+var arm;
+var leg_left;
+var leg_right;
 function init() {
     //Instantiate a new Scene objects
     scene = new Scene();
@@ -60,11 +64,33 @@ function init() {
     //Add a Cube to the Scene
     cubeMaterial = new LambertMaterial({ color: 0x00ff00 });
     cubeGeometry = new CubeGeometry(2, 2, 2);
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.castShadow = true;
-    cube.receiveShadow = true;
-    cube.position.y = 1;
-    scene.add(cube);
+    head = new Mesh(cubeGeometry, new LambertMaterial({ color: 0xffe08c }));
+    head.castShadow = true;
+    head.receiveShadow = true;
+    head.position.y = 7;
+    body = new Mesh(new CubeGeometry(3, 3, 3), new LambertMaterial({ color: 0x005766 }));
+    body.castShadow = true;
+    body.receiveShadow = true;
+    body.position.y = 5;
+    arm = new Mesh(new CubeGeometry(1, 1, 6), new LambertMaterial({ color: 0xffe08c }));
+    arm.castShadow = true;
+    arm.receiveShadow = true;
+    arm.position.y = 5;
+    leg_left = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({ color: 0xffe08c }));
+    leg_left.castShadow = true;
+    leg_left.receiveShadow = true;
+    leg_left.position.y = 3;
+    leg_left.position.x = 1;
+    leg_right = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({ color: 0xffe08c }));
+    leg_right.castShadow = true;
+    leg_right.receiveShadow = true;
+    leg_right.position.y = 3;
+    leg_right.position.x = -1;
+    scene.add(head);
+    scene.add(body);
+    scene.add(arm);
+    scene.add(leg_left);
+    scene.add(leg_right);
     console.log("Added Cube Primitive to scene");
     // Add an AmbientLight to the scene
     ambientLight = new AmbientLight(0x090909);
@@ -110,7 +136,11 @@ function addStatsObject() {
 //Setup main game loop
 function gameLoop() {
     stats.update();
-    cube.rotation.y += control.rotationSpeed;
+    head.rotation.y += control.rotationSpeed;
+    body.rotation.y += control.rotationSpeed;
+    arm.rotation.y += control.rotationSpeed;
+    leg_left.rotation.y += control.rotationSpeed;
+    leg_right.rotation.y += control.rotationSpeed;
     //render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     //render the scene
