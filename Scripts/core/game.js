@@ -39,8 +39,6 @@ var control;
 var gui;
 var stats;
 var step = 0;
-var cubeGeometry;
-var cubeMaterial;
 var body;
 var arm_left;
 var arm_right;
@@ -67,9 +65,7 @@ function init() {
     scene.add(plane);
     console.log("Added Plane Primitive to scene");
     //Add a Cube to the Scene
-    cubeMaterial = new LambertMaterial({ color: 0x00ff00 });
-    cubeGeometry = new CubeGeometry(2, 2, 2);
-    head = new Mesh(cubeGeometry, new LambertMaterial({ color: 0xffe08c }));
+    head = new Mesh(new CubeGeometry(2, 2, 2), new LambertMaterial({ color: 0xffe08c }));
     head.castShadow = true;
     head.receiveShadow = true;
     head.position.y = 3;
@@ -97,12 +93,24 @@ function init() {
     arm_right.receiveShadow = true;
     arm_right.position.y = 1;
     arm_right.position.x = -3.25;
-    leg_left = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({ color: 0x005766 }));
+    shoe_left = new Mesh(new CubeGeometry(1, 0.5, 2), new LambertMaterial({ color: 0xff1212 }));
+    shoe_left.castShadow = true;
+    shoe_left.receiveShadow = true;
+    shoe_left.position.x = 0.7;
+    shoe_left.position.y = -4.75;
+    shoe_left.position.z = -0.5;
+    shoe_right = new Mesh(new CubeGeometry(1, 0.5, 2), new LambertMaterial({ color: 0xff1212 }));
+    shoe_right.castShadow = true;
+    shoe_right.receiveShadow = true;
+    shoe_right.position.x = -0.7;
+    shoe_right.position.y = -4.75;
+    shoe_right.position.z = -0.5;
+    leg_left = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({ color: 0x005766 }));
     leg_left.castShadow = true;
     leg_left.receiveShadow = true;
     leg_left.position.x = 0.7;
     leg_left.position.y = -2;
-    leg_right = new Mesh(new CubeGeometry(1, 6, 1), new LambertMaterial({ color: 0x005766 }));
+    leg_right = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({ color: 0x005766 }));
     leg_right.castShadow = true;
     leg_right.receiveShadow = true;
     leg_right.position.x = -0.7;
@@ -115,6 +123,8 @@ function init() {
     body.add(t_right);
     body.add(leg_left);
     body.add(leg_right);
+    body.add(shoe_left);
+    body.add(shoe_right);
     console.log("Added Cube Primitive to scene");
     // Add an AmbientLight to the scene
     ambientLight = new AmbientLight(0x404040);
@@ -143,9 +153,7 @@ function init() {
 }
 function onResize() {
     camera.aspect = CScreen.RATIO;
-    //    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    //    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setSize(CScreen.WIDTH, CScreen.HEIGHT);
 }
 function addControl(controlObject) {
@@ -177,14 +185,12 @@ function setupRenderer() {
     renderer = new Renderer();
     renderer.setClearColor(0xEEEEEE, 1.0);
     renderer.setSize(CScreen.WIDTH, CScreen.HEIGHT);
-    //    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     console.log("Finished setting up Renderer...");
 }
 //Setup main camera for the scene
 function setupCamera() {
     camera = new PerspectiveCamera(45, config.Screen.RATIO, 0.1, 1000);
-    //camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.x = 0.6;
     camera.position.y = 16;
     camera.position.z = -20.5;
