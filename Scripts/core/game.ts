@@ -63,6 +63,7 @@ function init() {
     
     //setup the camera
     setupCamera();
+    scene.add(this.camera);
     
     // Add an axis helper o the scene
     axes = new AxisHelper(10);
@@ -74,7 +75,8 @@ function init() {
         new PlaneGeometry(16, 16, 1, 1),
         new LambertMaterial({ color: 0xe79b61 }),
         0, 0, 0);
-        
+    plane.castShadow = true;    
+    plane.receiveShadow = true;    
     plane.rotation.x = -0.5 * Math.PI;
     
     scene.add(plane);
@@ -84,9 +86,9 @@ function init() {
     head = new Mesh(new CubeGeometry(2, 2, 2),new LambertMaterial({color:0xffe08c}));
     head.castShadow = true;
     head.receiveShadow = true;
-    head.position.y = 3;
+    head.position.y = 2;
     
-    body = new Mesh(new CubeGeometry(3, 4, 3), new LambertMaterial({color:0xffffff}));
+    body = new Mesh(new CubeGeometry(3, 3, 3), new LambertMaterial({color:0xffffff}));
     body.castShadow = true;
     body.receiveShadow = true;
     body.position.y = 5;
@@ -95,56 +97,56 @@ function init() {
     t_left.castShadow = true;
     t_left.receiveShadow = true;
     t_left.position.x = 2;
-    t_left.position.y = 1;
+    t_left.position.y = 0.5;
     
     t_right = new Mesh(new CubeGeometry(1, 1, 1), new LambertMaterial({color:0xffffff}));
     t_right.castShadow = true;
     t_right.receiveShadow = true;
     t_right.position.x = -2;
-    t_right.position.y = 1;
+    t_right.position.y = 0.5;
     
     arm_left = new Mesh(new CubeGeometry(1.5, 1, 1), new LambertMaterial({color:0xffe08c}));
     arm_left.castShadow = true;
     arm_left.receiveShadow = true;
-    arm_left.position.y = 1;
+    arm_left.position.y = 0.5;
     arm_left.position.x = 3.25;
    
     arm_right = new Mesh(new CubeGeometry(1.5, 1, 1), new LambertMaterial({color:0xffe08c}));
     arm_right.castShadow = true;
     arm_right.receiveShadow = true;
-    arm_right.position.y = 1;
+    arm_right.position.y = 0.5;
     arm_right.position.x = -3.25;
     
     shoe_left = new Mesh(new CubeGeometry(1, 0.5, 2), new LambertMaterial({color:0xff1212}));
     shoe_left.castShadow = true;
     shoe_left.receiveShadow = true;
     shoe_left.position.x = 0.7;
-    shoe_left.position.y = -4.75;
+    shoe_left.position.y = -4.25;
     shoe_left.position.z = -0.5;
     
     shoe_right = new Mesh(new CubeGeometry(1, 0.5, 2), new LambertMaterial({color:0xff1212}));
     shoe_right.castShadow = true;
     shoe_right.receiveShadow = true;
     shoe_right.position.x = -0.7;
-    shoe_right.position.y = -4.75;
+    shoe_right.position.y = -4.25;
     shoe_right.position.z = -0.5;
     
     leg_left = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({color:0x005766}));
     leg_left.castShadow = true;
     leg_left.receiveShadow = true;
     leg_left.position.x = 0.7;
-    leg_left.position.y = -2;
+    leg_left.position.y = -1.5;
     
     leg_right = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({color:0x005766}));
     leg_right.castShadow = true;
     leg_right.receiveShadow = true;
     leg_right.position.x = -0.7;
-    leg_right.position.y = -2;
+    leg_right.position.y = -1.5;
     
     scene.add(body);
     body.add(arm_left);
     body.add(arm_right);
-    body.add(head);
+    body.add(head); 
     body.add(t_left);
     body.add(t_right);
     body.add(leg_left);
@@ -161,7 +163,8 @@ function init() {
 	
     //Add a SpotLight to the scene
     spotLight = new SpotLight(0xffffff);
-    spotLight.position.set(10, 23.1, 5.4);
+   // spotLight.position.set(10, 23.1, 5.4);
+   spotLight.position.set(300, 400, 5.4);
     spotLight.rotation.set(-0.8, 42.7, 19.5);
     spotLight.castShadow = true;
     spotLight.target.position.set(0,3,3);
