@@ -53,6 +53,7 @@ var shoe_left: Mesh;
 var shoe_right: Mesh;
 var t_left: Mesh;
 var t_right: Mesh;
+var tpocket: Mesh;
 
 function init() {
     //Instantiate a new Scene objects
@@ -92,6 +93,13 @@ function init() {
     body.castShadow = true;
     body.receiveShadow = true;
     body.position.y = 5;
+    
+    tpocket = new Mesh(new CubeGeometry(1, 1, 0.25),new LambertMaterial({color:0x8c8c8c}));
+    tpocket.castShadow = true;
+    tpocket.receiveShadow = true;
+    tpocket.position.x = -0.6;
+    tpocket.position.y = 0.6;
+    tpocket.position.z = -1.5;
     
     t_left = new Mesh(new CubeGeometry(1, 1, 1), new LambertMaterial({color:0xffffff}));
     t_left.castShadow = true;
@@ -144,6 +152,7 @@ function init() {
     leg_right.position.y = -1.5;
     
     scene.add(body);
+    body.add(tpocket);
     body.add(arm_left);
     body.add(arm_right);
     body.add(head); 
@@ -164,7 +173,7 @@ function init() {
     //Add a SpotLight to the scene
     spotLight = new SpotLight(0xffffff);
    // spotLight.position.set(10, 23.1, 5.4);
-   spotLight.position.set(300, 400, 5.4);
+    spotLight.position.set(300, 400, 5.4);
     spotLight.rotation.set(-0.8, 42.7, 19.5);
     spotLight.castShadow = true;
     spotLight.target.position.set(0,3,3);

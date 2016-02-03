@@ -48,6 +48,7 @@ var shoe_left;
 var shoe_right;
 var t_left;
 var t_right;
+var tpocket;
 function init() {
     //Instantiate a new Scene objects
     scene = new Scene();
@@ -76,6 +77,12 @@ function init() {
     body.castShadow = true;
     body.receiveShadow = true;
     body.position.y = 5;
+    tpocket = new Mesh(new CubeGeometry(1, 1, 0.25), new LambertMaterial({ color: 0x8c8c8c }));
+    tpocket.castShadow = true;
+    tpocket.receiveShadow = true;
+    tpocket.position.x = -0.6;
+    tpocket.position.y = 0.6;
+    tpocket.position.z = -1.5;
     t_left = new Mesh(new CubeGeometry(1, 1, 1), new LambertMaterial({ color: 0xffffff }));
     t_left.castShadow = true;
     t_left.receiveShadow = true;
@@ -119,6 +126,7 @@ function init() {
     leg_right.position.x = -0.7;
     leg_right.position.y = -1.5;
     scene.add(body);
+    body.add(tpocket);
     body.add(arm_left);
     body.add(arm_right);
     body.add(head);
