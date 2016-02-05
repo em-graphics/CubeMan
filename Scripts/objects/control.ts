@@ -12,7 +12,9 @@ module objects {
         constructor(rotationSpeed:number) {
            this.rotationSpeedY = rotationSpeed;
            this.rotationSpeedX = rotationSpeed;
-           this.rotationSpeedZ = rotationSpeed;
-        }        
+           this.rotationSpeedZ = rotationSpeed;                  
+        }
+        
+                
     }
 }

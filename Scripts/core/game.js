@@ -49,6 +49,12 @@ var shoe_right;
 var t_left;
 var t_right;
 var tpocket;
+var skinMaterial;
+var shirtsMaterial;
+var pantsMaterial;
+var shoesMaterial;
+var planeMaterial;
+var test;
 function init() {
     //Instantiate a new Scene objects
     scene = new Scene();
@@ -62,18 +68,23 @@ function init() {
     scene.add(axes);
     console.log("Added Axis Helper to scene");
     //Add a Plane to the Scene
-    plane = new gameObject(new PlaneGeometry(16, 16, 1, 1), new LambertMaterial({ color: 0xe79b61 }), 0, 0, 0);
+    planeMaterial = new LambertMaterial({ color: 0xe79b61 });
+    plane = new gameObject(new PlaneGeometry(20, 16, 1, 1), planeMaterial, 0, 0, 0);
     plane.castShadow = true;
     plane.receiveShadow = true;
     plane.rotation.x = -0.5 * Math.PI;
     scene.add(plane);
     console.log("Added Plane Primitive to scene");
     //Add a Cube to the Scene
-    head = new Mesh(new CubeGeometry(2, 2, 2), new LambertMaterial({ color: 0xffe08c }));
+    skinMaterial = new LambertMaterial({ color: 0xffe08c });
+    shirtsMaterial = new LambertMaterial({ color: 0xffffff });
+    pantsMaterial = new LambertMaterial({ color: 0x005766 });
+    shoesMaterial = new LambertMaterial({ color: 0xff1212 });
+    head = new Mesh(new CubeGeometry(2, 2, 2), skinMaterial);
     head.castShadow = true;
     head.receiveShadow = true;
     head.position.y = 2;
-    body = new Mesh(new CubeGeometry(3, 3, 3), new LambertMaterial({ color: 0xffffff }));
+    body = new Mesh(new CubeGeometry(3, 3, 3), shirtsMaterial);
     body.castShadow = true;
     body.receiveShadow = true;
     body.position.y = 5;
@@ -83,44 +94,44 @@ function init() {
     tpocket.position.x = -0.6;
     tpocket.position.y = 0.6;
     tpocket.position.z = -1.5;
-    t_left = new Mesh(new CubeGeometry(1, 1, 1), new LambertMaterial({ color: 0xffffff }));
+    t_left = new Mesh(new CubeGeometry(1, 1, 1), shirtsMaterial);
     t_left.castShadow = true;
     t_left.receiveShadow = true;
     t_left.position.x = 2;
     t_left.position.y = 0.5;
-    t_right = new Mesh(new CubeGeometry(1, 1, 1), new LambertMaterial({ color: 0xffffff }));
+    t_right = new Mesh(new CubeGeometry(1, 1, 1), shirtsMaterial);
     t_right.castShadow = true;
     t_right.receiveShadow = true;
     t_right.position.x = -2;
     t_right.position.y = 0.5;
-    arm_left = new Mesh(new CubeGeometry(1.5, 1, 1), new LambertMaterial({ color: 0xffe08c }));
+    arm_left = new Mesh(new CubeGeometry(1.5, 1, 1), skinMaterial);
     arm_left.castShadow = true;
     arm_left.receiveShadow = true;
     arm_left.position.y = 0.5;
     arm_left.position.x = 3.25;
-    arm_right = new Mesh(new CubeGeometry(1.5, 1, 1), new LambertMaterial({ color: 0xffe08c }));
+    arm_right = new Mesh(new CubeGeometry(1.5, 1, 1), skinMaterial);
     arm_right.castShadow = true;
     arm_right.receiveShadow = true;
     arm_right.position.y = 0.5;
     arm_right.position.x = -3.25;
-    shoe_left = new Mesh(new CubeGeometry(1, 0.5, 2), new LambertMaterial({ color: 0xff1212 }));
+    shoe_left = new Mesh(new CubeGeometry(1, 0.5, 2), shoesMaterial);
     shoe_left.castShadow = true;
     shoe_left.receiveShadow = true;
     shoe_left.position.x = 0.7;
     shoe_left.position.y = -4.25;
     shoe_left.position.z = -0.5;
-    shoe_right = new Mesh(new CubeGeometry(1, 0.5, 2), new LambertMaterial({ color: 0xff1212 }));
+    shoe_right = new Mesh(new CubeGeometry(1, 0.5, 2), shoesMaterial);
     shoe_right.castShadow = true;
     shoe_right.receiveShadow = true;
     shoe_right.position.x = -0.7;
     shoe_right.position.y = -4.25;
     shoe_right.position.z = -0.5;
-    leg_left = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({ color: 0x005766 }));
+    leg_left = new Mesh(new CubeGeometry(1, 5, 1), pantsMaterial);
     leg_left.castShadow = true;
     leg_left.receiveShadow = true;
     leg_left.position.x = 0.7;
     leg_left.position.y = -1.5;
-    leg_right = new Mesh(new CubeGeometry(1, 5, 1), new LambertMaterial({ color: 0x005766 }));
+    leg_right = new Mesh(new CubeGeometry(1, 5, 1), pantsMaterial);
     leg_right.castShadow = true;
     leg_right.receiveShadow = true;
     leg_right.position.x = -0.7;
@@ -144,16 +155,16 @@ function init() {
     //Add a SpotLight to the scene
     spotLight = new SpotLight(0xffffff);
     // spotLight.position.set(10, 23.1, 5.4);
-    spotLight.position.set(300, 400, 5.4);
-    spotLight.rotation.set(-0.8, 42.7, 19.5);
+    spotLight.position.set(-40, 60, 10);
+    //spotLight.rotation.set(-0.8, 42.7, 19.5);
     spotLight.castShadow = true;
     spotLight.target.position.set(0, 3, 3);
-    spotLight.shadowDarkness = 0.5;
+    //spotLight.shadowDarkness = 0.5;
     scene.add(spotLight);
     console.log("Added a SpotLight Light to Scene");
     //Add controls
     gui = new GUI();
-    control = new Control(0.05);
+    control = new Control(0.1);
     addControl(control);
     //Add framerate stats
     addStatsObject();
@@ -172,6 +183,28 @@ function addControl(controlObject) {
     gui.add(controlObject, 'rotationSpeedX', -0.5, 0.5);
     gui.add(controlObject, 'rotationSpeedY', -0.5, 0.5);
     gui.add(controlObject, 'rotationSpeedZ', -0.5, 0.5);
+    //Add color picker gui
+    var folder1, folder2, folder3, folder4, folder5;
+    folder1 = gui.addFolder('Skin Color change');
+    folder1.addColor({ color: 0xffe08c }, 'color').onChange(function (newColor) {
+        skinMaterial.color.setHex(newColor);
+    });
+    folder2 = gui.addFolder('Shirts Color change');
+    folder2.addColor({ color: 0xffffff }, 'color').onChange(function (newColor) {
+        shirtsMaterial.color.setHex(newColor);
+    });
+    folder3 = gui.addFolder('Pants Color change');
+    folder3.addColor({ color: 0x005766 }, 'color').onChange(function (newColor) {
+        pantsMaterial.color.setHex(newColor);
+    });
+    folder4 = gui.addFolder('Shoes Color change');
+    folder4.addColor({ color: 0xff1212 }, 'color').onChange(function (newColor) {
+        shoesMaterial.color.setHex(newColor);
+    });
+    folder5 = gui.addFolder('Ground Color change');
+    folder5.addColor({ color: 0xe79b61 }, 'color').onChange(function (newColor) {
+        planeMaterial.color.setHex(newColor);
+    });
 }
 function addStatsObject() {
     stats = new Stats();
@@ -187,6 +220,7 @@ function gameLoop() {
     body.rotation.y += control.rotationSpeedY;
     body.rotation.x += control.rotationSpeedX;
     body.rotation.z += control.rotationSpeedZ;
+    //body.geometry = this.test;
     //render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     //render the scene
