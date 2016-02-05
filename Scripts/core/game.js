@@ -184,25 +184,19 @@ function addControl(controlObject) {
     gui.add(controlObject, 'rotationSpeedY', -0.5, 0.5);
     gui.add(controlObject, 'rotationSpeedZ', -0.5, 0.5);
     //Add color picker gui
-    var folder1, folder2, folder3, folder4, folder5;
-    folder1 = gui.addFolder('Skin Color change');
-    folder1.addColor({ color: 0xffe08c }, 'color').onChange(function (newColor) {
+    gui.addColor({ color: 0xffe08c }, 'color').onChange(function (newColor) {
         skinMaterial.color.setHex(newColor);
     });
-    folder2 = gui.addFolder('Shirts Color change');
-    folder2.addColor({ color: 0xffffff }, 'color').onChange(function (newColor) {
+    gui.addColor({ color: 0xffffff }, 'color').onChange(function (newColor) {
         shirtsMaterial.color.setHex(newColor);
     });
-    folder3 = gui.addFolder('Pants Color change');
-    folder3.addColor({ color: 0x005766 }, 'color').onChange(function (newColor) {
+    gui.addColor({ color: 0x005766 }, 'color').onChange(function (newColor) {
         pantsMaterial.color.setHex(newColor);
     });
-    folder4 = gui.addFolder('Shoes Color change');
-    folder4.addColor({ color: 0xff1212 }, 'color').onChange(function (newColor) {
+    gui.addColor({ color: 0xff1212 }, 'color').onChange(function (newColor) {
         shoesMaterial.color.setHex(newColor);
     });
-    folder5 = gui.addFolder('Ground Color change');
-    folder5.addColor({ color: 0xe79b61 }, 'color').onChange(function (newColor) {
+    gui.addColor({ color: 0xe79b61 }, 'color').onChange(function (newColor) {
         planeMaterial.color.setHex(newColor);
     });
 }
