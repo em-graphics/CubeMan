@@ -67,6 +67,8 @@ var shoe_right: Mesh;
 var t_left: Mesh;
 var t_right: Mesh;
 var tpocket: Mesh;
+var eye_left : Mesh;
+var eye_right : Mesh;
 var skinMaterial:LambertMaterial;
 var shirtsMaterial:LambertMaterial;
 var pantsMaterial:LambertMaterial;
@@ -114,6 +116,20 @@ function init() {
     head.castShadow = true;
     head.receiveShadow = true;
     head.position.y = 2;
+    
+    eye_left = new Mesh(new CubeGeometry(0.3, 0.4, 0.3), new LambertMaterial({color:0x000000}));
+    eye_left.castShadow = true;
+    eye_left.receiveShadow = true;
+    eye_left.position.y = 2.5;
+    eye_left.position.z = -0.9;
+    eye_left.position.x =0.5; 
+    
+    eye_right = new Mesh(new CubeGeometry(0.3, 0.4, 0.3), new LambertMaterial({color:0x000000}));
+    eye_right.castShadow = true;
+    eye_right.receiveShadow = true;
+    eye_right.position.y = 2.5;
+    eye_right.position.z =-0.9;
+    eye_right.position.x =-0.5; 
     
     body = new Mesh(new CubeGeometry(3, 3, 3), shirtsMaterial);
     body.castShadow = true;
@@ -178,6 +194,8 @@ function init() {
     leg_right.position.y = -1.5;
     
     scene.add(body);
+    body.add(eye_left);
+    body.add(eye_right);
     body.add(tpocket);
     body.add(arm_left);
     body.add(arm_right);
